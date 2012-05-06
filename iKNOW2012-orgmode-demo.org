@@ -412,9 +412,15 @@ change the layout.
 The following table holds information about ACM categories.
 
 #+name: categories
-| code  | description          | category                    | optional |
-|-------+----------------------+-----------------------------+----------|
-| D.2.3 | SOFTWARE ENGINEERING | Coding Tools and Techniques |          |
+| code  | description                      | category                       | optional        |
+|-------+----------------------------------+--------------------------------+-----------------|
+| I.7.1 | DOCUMENT AND TEXT PROCESSING     | Document and Text Editing      | Emacs           |
+| H.4.1 | INFORMATION SYSTEMS APPLICATIONS | Office Automation              | Word processing |
+| D.2.3 | SOFTWARE ENGINEERING             | Coding Tools and Techniques    |                 |
+| I.7.1 | DOCUMENT AND TEXT PROCESSING     | Document Preparation           |                 |
+| I.7.4 | DOCUMENT AND TEXT PROCESSING     | Electronic Publishing          |                 |
+| D.4.9 | OPERATING SYSTEMS                | Systems Programs and Utilities |                 |
+| E.2   | DATA STORAGE REPRESENTATIONS     | Linked representations         |                 |
 
 ** Term list
 
