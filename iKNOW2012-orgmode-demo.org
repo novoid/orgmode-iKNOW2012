@@ -15,6 +15,9 @@ paper is available on github
 \texttt{https://github.com/novoid/orgmode-iKNOW2012}}}
 #+END_LaTeX
 
+#+COMMENT: following line adds an additional LaTeX command to the TeX preamble:
+#+LaTeX_HEADER: \usepackage{csquotes}
+
 # Note that add-author-record isn't fully correct.  It formats a comma
 # separated list, when it should return a list with the final element
 # separated by "and".
@@ -108,7 +111,7 @@ languages, and the describing text of a paper in one single file.
 
 * Emacs Org-mode
 
-\cite{Voit2011}
+
 
 \cite{Dominik2010}
 
@@ -118,22 +121,86 @@ languages, and the describing text of a paper in one single file.
 
 \cite{Schulte2012}
 
-#+name: another-listing
- #+begin_src python :exports code
-  x = str(y)
- #+end_src
-This is an inline snippet of Python: [[latex:python][x = str(y)]].
+ 
+** Formal Experiment
 
-** Tables
+In \cite{Voit2011} the authors describe a formal experiment conducted
+with 18 test persons in the field of information retrieval. The
+original data set is available
+online\footnote{https://github.com/novoid/2011-01-tagstore-formal-experiment}. 
+This paper here demonstrates FIXXME
+
+Reading in raw data related to seconds per task from CSV file:
+
+The following shell commands read in a CSV file, removes all values
+before the character ";" (thus removing all values related to number
+of mouse clicks), removes all incomplete lines (containing the string
+\enquote{TC}), and removes the header line as well (using the
+\texttt{tail} command):
+
+#+NAME: time-per-task
+#+BEGIN_SRC sh :exports both
+sed 's/.*;//' refinding_tagstore.csv | \
+   grep -v "TC" | \
+   tail -n +2
+#+END_SRC 
+
+#+RESULTS: time-per-task
+|  5.7 |  3.8 |  4.3 |  2.4 |  4.3 | 3.2 |
+|  6.0 |  2.9 |  4.3 |  4.6 |  4.4 | 3.3 |
+|  5.4 |  3.2 |  6.1 |  6.5 |  5.7 | 4.4 |
+|  4.3 | 15.7 |  6.2 |  4.9 |  3.1 | 3.0 |
+|  9.7 |  3.7 |  3.0 |  3.9 |  2.7 | 8.6 |
+| 21.8 |  2.6 | 11.4 |  3.0 | 17.1 | 5.7 |
+|  6.6 |  5.6 |  5.0 |  4.1 |  4.5 | 2.0 |
+|  7.0 |  2.6 | 10.0 |  3.7 |  9.5 | 3.0 |
+|  4.8 |  2.5 |  4.3 |  2.3 |  1.8 | 3.9 |
+|  2.4 |  2.7 |  7.1 |  6.2 |  3.8 | 5.1 |
+|  3.7 |  3.9 |  7.4 |  2.0 |  3.1 | 7.2 |
+|  5.5 |  5.5 |  8.3 | 11.4 |  3.2 | 7.6 |
+| 28.3 |  4.0 |  3.9 |  2.0 |  2.4 | 4.3 |
+|  5.0 |  5.6 |  6.0 | 14.2 |  2.0 | 6.6 |
+|  6.7 |  5.6 |  7.2 | 12.3 |  5.1 | 6.6 |
+
+In the next step, the mean values per test person will be calculated
+using the programming language Python:
+
+#+NAME: calculate-mean-values
+#+BEGIN_SRC python :var tab=time-per-task :exports both
+import numpy
+return [round(numpy.average(row),2) for row in tab]
+#+END_SRC
+
+#+RESULTS: calculate-mean-values
+| 3.95 | 4.25 | 5.22 | 6.2 | 5.27 | 10.27 | 4.63 | 5.97 | 3.27 | 4.55 | 4.55 | 6.92 | 7.48 | 6.57 | 7.25 |
+
+
+
+** Test :noexport:
+
+#+name: directory-pie-chart(dirs = directories)
+#+begin_src R :session R-pie-example :file ../../images/babel/dirs.png
+  pie(dirs[,1], labels = dirs[,2])
+#+end_src
+
+#+tblname: mean-values
+| 5.7 |
+#+TBLFM: @1$1=remote(time-per-task, @1$1)
+
+#+TBLFM: @1$1..@6$15=remote(time-per-task, @1$1..@6$15)
+
+: $2=vmean($1)::
+
+
+** Tables :noexport:
 
 #+CAPTION: [Short caption]{Long caption}
 #+LABEL: tab:my-table
 | *Head1* | *Head2* |
 |---------+---------|
 | foo     | bar     |
- 
- 
-# Additional headlines and content here
+
+** End
 
 \bibliographystyle{abbrv}
 # change bibliography name to suit
