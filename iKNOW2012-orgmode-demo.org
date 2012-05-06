@@ -150,9 +150,9 @@ In the next step, the mean values per test person will be calculated
 using the programming language Python:
 
 : #+NAME: calculate-mean-values
-: #+BEGIN_SRC python :var table=time-per-task :exports both
+: #+BEGIN_SRC python :var mytable=time-per-task :exports both
 : import numpy
-: return [round(numpy.average(row),2) for row in table]
+: return [round(numpy.average(row),2) for row in mytable]
 : #+END_SRC
 
 
