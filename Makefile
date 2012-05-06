@@ -27,4 +27,4 @@ iKNOW2012-orgmode-demo.ps: iKNOW2012-orgmode-demo.pdf
 	pdf2ps iKNOW2012-orgmode-demo.pdf
 
 clean:
-	rm -f *.aux *.log  *.dvi *.blg *.bbl *.toc *.tex *~ *.out iKNOW2012-orgmode-demo.pdf *.xml *.lot *.lof
+	rm -f *.aux *.log  *.dvi *.blg *.bbl *.toc *.tex *~ *.out *.xml *.lot *.lof

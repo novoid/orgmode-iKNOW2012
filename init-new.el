@@ -1,14 +1,14 @@
 
-(add-to-list 'load-path "~/.emacs.d/src/org/contrib/lisp") ;; <- adjust
-(add-to-list 'load-path "~/.emacs.d/src/org/lisp") ;; <- adjust
-(add-to-list 'load-path "~/.emacs.d/src/org") ;; <- adjust
+(add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp") ;; <- adjust
+(add-to-list 'load-path "~/.emacs.d/org-mode/lisp") ;; <- adjust
+(add-to-list 'load-path "~/.emacs.d/org-mode") ;; <- adjust
 
 (require 'org-install)
 (require 'org-export)
 (require 'org-e-latex)
 
 ;; this line only required until the upcomming Org-mode/Emacs24 sync
-(load "~/.emacs.d/src/org/lisp/org-exp-blocks.el")
+(load "~/.emacs.d/org-mode/lisp/org-exp-blocks.el")
 
 
 ;; Configure Babel to support all languages included in the manuscript

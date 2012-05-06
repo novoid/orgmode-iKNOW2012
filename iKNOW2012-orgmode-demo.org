@@ -1,18 +1,18 @@
-#+TITLE:
+#+TITLE: 
 #+LANGUAGE:  en
 #+OPTIONS: H:5 author:nil email:nil creator:nil timestamp:nil skip:nil toc:nil
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+LaTeX_CLASS: acm-proc-article-sp
-* This headline needed for old exporter, delete just the headline with new exporter                                              
+
+## FIXXME: do *not* fill out "+TITLE' above!
 
 # Replace the title and subtitle with your own
 #+BEGIN_LaTeX
-\title{A Sample {\ttlit ACM} SIG Proceedings Paper in Org-mode Format\titlenote{(Does NOT produce the permission block, copyright information nor page numbering). For use with ACM\_PROC\_ARTICLE-SP.CLS. Supported by ACM.}}
-\subtitle{[Extended Abstract]\titlenote{A full version of this paper is available as
-\textit{Author's Guide to Preparing ACM SIG Proceedings Using
-\LaTeX$2_\epsilon$\ and BibTeX} at
-\texttt{www.acm.org/eaddress.htm}}}
+\title{Using Emacs Org-mode to Create Reproducible Research}
+\subtitle{[Demo]\titlenote{The full source code of this
+paper is available on github
+\texttt{https://github.com/novoid/orgmode-iKNOW2012}}}
 #+END_LaTeX
 
 # Note that add-author-record isn't fully correct.  It formats a comma
@@ -105,13 +105,39 @@ languages, and the describing text of a paper in one single file.
 
 #+CALL: list-to-cs-string(in-command="keywords", in-list=keyword-list) :results latex :exports results
 
-* First real headline, replace with your first headline
 
+* Emacs Org-mode
+
+\cite{Voit2011}
+
+\cite{Dominik2010}
+
+\cite{Delescluse2011}
+
+\cite{Schulte2011}
+
+\cite{Schulte2012}
+
+#+name: another-listing
+ #+begin_src python :exports code
+  x = str(y)
+ #+end_src
+This is an inline snippet of Python: [[latex:python][x = str(y)]].
+
+** Tables
+
+#+CAPTION: [Short caption]{Long caption}
+#+LABEL: tab:my-table
+| *Head1* | *Head2* |
+|---------+---------|
+| foo     | bar     |
+ 
+ 
 # Additional headlines and content here
 
 \bibliographystyle{abbrv}
 # change bibliography name to suit
-\bibliography{sigproc}  
+\bibliography{references}  
 
 \balancecolumns
 
@@ -372,9 +398,10 @@ document.  You can separate groups of authors with a blank line to
 change the layout.
 
 #+name: authorlist
-| author    | note | institute                         | addr1                         | addr2   | email                   |
-|-----------+------+-----------------------------------+-------------------------------+---------+-------------------------|
-| Karl Voit |      | Institute for Software Technology | Graz University of Technology | Austria | Karl.Voit@IST.TUGraz.at |
+| author        | note | institute                                   | addr1                         | addr2    | email                   |
+|---------------+------+---------------------------------------------+-------------------------------+----------+-------------------------|
+| Karl Voit     |      | Institute for Software Technology           | Graz University of Technology | Austria  | Karl.Voit@IST.TUGraz.at |
+| Thomas S. Dye |      | Thomas S. Dye \& Colleagues, Archaeologists | 735 Bishop St, Suite 315      | Honolulu | tsd@tsdye.com           |
 
 #+name: additional-authors
 | author            | institute                 | email                  |
@@ -385,9 +412,9 @@ change the layout.
 The following table holds information about ACM categories.
 
 #+name: categories
-| code  | description                 | category             | optional |
-|-------+-----------------------------+----------------------+----------|
-| D.2.3 | Coding Tools and Techniques | SOFTWARE ENGINEERING |          |
+| code  | description          | category                    | optional |
+|-------+----------------------+-----------------------------+----------|
+| D.2.3 | SOFTWARE ENGINEERING | Coding Tools and Techniques |          |
 
 ** Term list
 
@@ -451,35 +478,3 @@ separated list wrapped by the command.
 \terms{Theory}
 #+END_LaTeX
 
-
-* Emacs Org-mode
-
-: \cite{Voit2011}
-: 
-: \cite{Dominik2010}
-: 
-: \cite{Delescluse2011}
-: 
-: \cite{Schulte2011}
-: 
-: \cite{Schulte2012}
-
-: #+name: another-listing
-:  #+begin_src python :exports code
-:   x = str(y)
-:  #+end_src
-: This is an inline snippet of Python: [[latex:python][x = str(y)]].
-: 
-: ** Tables
-: 
-: #+CAPTION: [Short caption]{Long caption}
-: #+LABEL: tab:my-table
-: | *Head1* | *Head2* |
-: |---------+---------|
-: | foo     | bar     |
-: 
-: 
-: * End
-: 
-: \bibliographystyle{kabbrv}
-: \bibliography{references}
