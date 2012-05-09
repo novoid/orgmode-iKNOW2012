@@ -15,6 +15,11 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
+   (python . t)
+   (ruby . t)
+   (gnuplot . t)
+   (sh . t)
+   (R . t)
    (org        . t)))
 (setq org-confirm-babel-evaluate nil)
 (setq toggle-debug-on-error t)
