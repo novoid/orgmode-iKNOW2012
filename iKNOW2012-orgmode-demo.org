@@ -336,8 +336,9 @@ the folder condition of the formal experiment.
   
 ** Plotting Data
 
-To visualize the two sets of data using a boxplot graph, we are using
-the R project:
+The open source statistical software R offers many different kind of
+commands to process data.  To visualize the two sets of data using a
+boxplot graph, we are using the following R script:
 
 #+NAME: boxplot-data
 #+BEGIN_SRC R :var TSdata=TS-sort-mean-values :var Fdata=F-sort-mean-values :exports code :results none
@@ -361,20 +362,20 @@ boxplot( list(mTSdata, mFdata),
 
 #+RESULTS: boxplot-data
 
+: #+CAPTION: Comparison of the two task conditions for re-finding: tagstore and folders. There is no significant difference between the two conditions.
+: #+LABEL: fig:boxplots
 #+ATTR_LaTeX: width=0.5\textwidth
-#+CAPTION: Comparison of the two task conditions for re-finding: tagstore and folders. There is no significant difference between the two conditions.
-#+LABEL: fig:boxplots
 [[file:my_boxplot_data.png]]
 
 
-The resulting graph in Figure \ref{fig:boxplots} visualizes the
-overall result of the two test conditions: the average task times in
-the \emph{tagstore} condition and the folders condition.
+The resulting graph visualizes the overall result of the two test
+conditions: the average task times in the \emph{tagstore} condition
+and the folders condition.
 
 Every single step from the raw data from the \myacro{CSV} file to the
-graph in Figure \ref{fig:boxplots} can be completely checked and
-re-created by anybody who wants to do so. This method of Reproducible
-Research guarantees the highest level of transparency and confirmability.
+graph can be completely checked and re-created by anybody who wants to
+do so. This method of Reproducible Research guarantees the highest
+level of transparency and confirmability.
 
 
 * boxplot-test :noexport:
@@ -421,8 +422,19 @@ boxplot(mydata, mydata, xlab="x")
 | average time values TS + F       | R          | boxplot of times       |
 
 To sum up the different data paths, we conclude in
-Table \ref{tab:overview-values-languages} the different steps. 
+Table \ref{tab:overview-values-languages} the different steps. We have
+read in raw data from external \myacro{CSV} files and filtered them using
+shell tools.
 
+Then we processed the data using a Python program in
+order to compute the average mean values of the times. Using the tool "sort"
+we got the sorted list of mean values which were visualized using R
+into boxplot graphs.
+
+To summarize, the method of writing research papers within Org-mode
+can simplify the writing process itself, create additional value by
+having an easy to invoke data processing method, and it illustrates
+the author's work in the most transparent way possible.
 
 \bibliographystyle{abbrv}
 # change bibliography name to suit
