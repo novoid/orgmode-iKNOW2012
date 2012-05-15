@@ -19,6 +19,7 @@ paper is available on github
 #+LaTeX_HEADER: \usepackage{csquotes}
 #+LaTeX_HEADER: \usepackage[usenames,dvipsnames]{color}
 #+LaTeX_HEADER: \newcommand{\todo}[1]{\textcolor{red}{FIXXME:~#1}}
+#+LaTeX_HEADER: \newcommand{\myacro}[1]{\textsc{\lowercase{#1}}}
 
 # Note that add-author-record isn't fully correct.  It formats a comma
 # separated list, when it should return a list with the final element
@@ -83,10 +84,10 @@ results using the published data set. For this purpose it is crucial
 to use similar methods and tools as the original author producing the
 same result set. Reproducible research is a movement that tries to
 bridge this gap: within one single set of data one can not only find
-the raw data but also the methods and tools to process the data.
-The ultimate discipline is to complete this cycle from the raw data up
-to the presentation in the derived paper. This paper demonstrates
-using a simple example how to combine raw data, scripts of various
+the raw data but also the methods and tools to process the data.  The
+ultimate discipline is to complete this cycle from the raw data up to
+the presentation in the derived paper. Using a simple example this
+paper demonstrates how to combine raw data, scripts of various
 languages, and the describing text of a paper in one single file.
 #+END_abstract
 
@@ -110,35 +111,77 @@ languages, and the describing text of a paper in one single file.
 
 #+CALL: list-to-cs-string(in-command="keywords", in-list=keyword-list) :results latex :exports results
 
+* Introduction and Related Work
 
-* Emacs Org-mode
+The editor Emacs\footnote{http://www.gnu.org/software/emacs/} provides
+a modular system that can be extended in various ways. One example of
+an extension is the
+Org-mode\footnote{http://orgmode.org}\cite{Dominik2010} which
+resembles a large set of features: outlining, task and project
+management, personal wiki system, export to a broad variety of
+formats, integration of external tools, and much more.
 
-\todo{Add references}
-\cite{Dominik2010}
+Using the Babel subsystem to integrate external data sources -- such
+as source code and execution results from these source code snippets
+-- allows for creating meta-documents. This method can be applied for
+Literate Programming\cite{Knuth1984} or Reproducible
+Research\cite{Delescluse2011, Schulte2011, Schulte2012}.
 
-\cite{Delescluse2011}
+Reproducible Research can be seen as the ultimate aim of Open
+Science and Open Data. People do not only get access to the data
+behind a research paper but also to the complete process of deriving
+the paper from the raw data up to the \myacro{PDF} file of the white
+paper.
 
-\cite{Schulte2011}
+This paper is a short demonstration of the general work flow from the
+very easy to write Org-mode text-file -- which contains descriptive
+text and processing scripts -- to the final \myacro{PDF} document in
+exact \myacro{ACM} template
+format\footnote{http://www.acm.org/sigs/publications/proceedings-templates}. 
 
-\cite{Schulte2012}
+Using a real world example, this paper develops a data processing path
+starting from raw data within \myacro{CSV} files up to visualizing
+plots. Different computer languages are part of this process: shell
+script tools, Python\footnote{Programming language, http://www.python.org/}, 
+and R\footnote{Statistical software, http://www.r-project.org/}. The data is generated or processed using
+one computer language and transferred to the next one which is
+different from the previous. With this technique, it is possible to
+process the data with the most suitable command language appropriate
+for this single processing step.
 
-** Formal Experiment 
+* Evaluating a Formal Experiment 
 
 In \cite{Voit2011} the authors describe a formal experiment conducted
 with 18 test persons in the field of information retrieval. The
 original data set is available
-online\footnote{https://github.com/novoid/2011-01-tagstore-formal-experiment}. 
-This paper here demonstrates FIXXME\todo{add introduction text}
+online\footnote{https://github.com/novoid/2011-01-tagstore-formal-experiment}.
 
-*** Reading in refinding tagstore values
+We are using this public available data set in the following sections
+to demonstrate the analysis and visualization of the research
+question: to what extent differs the test persons average re-find task
+times within the usual folder hierarchy from average re-find task
+times using the newly proposed research software called
+\emph{tagstore}\footnote{http://tagstore.org}.
 
-Reading in raw data related to seconds per task from CSV file:
+** Reading in Data from Files
 
-The following shell commands reads in a CSV file, removes all values
-before the character ";" (thus removing all values related to number
-of mouse clicks), removes all incomplete lines (containing the string
-\enquote{TC}), and removes the header line as well (using the
-\texttt{tail} command):
+The analysis starts with reading in raw data from external files. In
+this first external \myacro{CSV} file, the re-finding performance of
+all test persons is stored. Since we are only interested in the task
+times, we want to filter out all other values that are irrelevant for
+this analysis. We are using \myacro{GNU} shell commands and tools to
+accomplish this task.
+
+The following shell commands 
+\begin{enumerate}
+\item reads in data from a \myacro{CSV} file,
+\item removes all values before the character ";" (thus removing all values
+related to number of mouse clicks), 
+\item removes all incomplete lines (containing the string
+\enquote{TC}), 
+\item and removes the header line as well (using the \texttt{tail}
+command).
+\end{enumerate}
 
 #+NAME: TS-time-per-task
 #+BEGIN_SRC sh :exports both
@@ -164,10 +207,20 @@ sed 's/.*;//' refinding_tagstore.csv | \
 |  5.0 |  5.6 |  6.0 | 14.2 |  2.0 | 6.6 |
 |  6.7 |  5.6 |  7.2 | 12.3 |  5.1 | 6.6 |
 
-*** Generating mean values
+The table above resembles the direct output of the command provided
+above. Using Org-mode the user can decide, if the commands, or the
+output, or both gets printed in the exported file. 
 
-In the next step, the mean values per test person will be calculated
-using the programming language Python:
+** Generating Mean Values
+
+Now that we have the raw task times of the test persons for the
+\emph{tagstore} condition, we do want to derive the arithmetic mean
+values for further processing.
+
+In the next step, the mean values will be calculated using the
+programming language Python. We take the result data from the last
+command from the previous section and use it as input data for the
+following source code snippet:
 
 #+NAME: calculate-TS-mean-values
 #+BEGIN_SRC python :var mytable=TS-time-per-task :exports code
@@ -178,10 +231,15 @@ return [round(numpy.average(row),2) for row in mytable]
 #+RESULTS: calculate-TS-mean-values
 | 3.95 | 4.25 | 5.22 | 6.2 | 5.27 | 10.27 | 4.63 | 5.97 | 3.27 | 4.55 | 4.55 | 6.92 | 7.48 | 6.57 | 7.25 |
 
-This time, the (long) output list of mean values is being suppressed
-for layout purposes.
+This time, the output list consisting of 15 mean values is being
+suppressed for layout purposes.
 
-*** Sorting values
+** Sorting Values
+
+To demonstrate the combination of different command languages, we are
+now using \myacro{GNU} sed and sort to transform the list of mean
+values in a column format of mean values and sort it reverse
+numerical:
 
 #+NAME: TS-sort-mean-values
 #+BEGIN_SRC sh :var myvalues=calculate-TS-mean-values :exports both
@@ -205,7 +263,14 @@ echo ${myvalues} | sed 's/ /\n/g' | sort -nr
 |  3.95 |
 |  3.27 |
 
-*** Process folder values
+
+We get the sorted list of mean values of the task times for all test
+persons in the \emph{tagstore} condition.
+
+** Process Folder Values
+
+In this section we repeat the previous steps with the task data
+for the second test condition, the folder condition.
 
 #+NAME: F-time-per-task
 #+BEGIN_SRC sh :exports both
@@ -215,7 +280,6 @@ sed 's/.*;//' refinding_folders.csv | \
 #+END_SRC 
 
 #+RESULTS: F-time-per-task
-
 |  6.7 | 5.4 |  2.4 |  3.9 | 3.6 | 3.8 |
 |  5.4 | 3.1 |  3.4 |  3.5 | 3.3 | 3.6 |
 |  6.5 | 6.6 |  4.0 |  4.4 | 4.0 | 5.1 |
@@ -232,8 +296,7 @@ sed 's/.*;//' refinding_folders.csv | \
 |  6.6 | 6.6 |  4.6 |  7.5 | 3.8 | 5.2 |
 |  6.0 | 3.2 |  5.1 |  4.4 | 5.9 | 4.0 |
 |  4.6 | 1.6 |  3.4 |  4.1 | 4.4 | 3.8 |
-|  7.1 | 4.5 |  7.0 |  7.6 | 5.5 | 7.5 | 
-
+|  7.1 | 4.5 |  7.0 |  7.6 | 5.5 | 7.5 |
 
 #+NAME: calculate-F-mean-values
 #+BEGIN_SRC python :var mytable=F-time-per-task :exports code
@@ -268,14 +331,25 @@ echo ${myvalues} | sed 's/ /\n/g' | sort -nr
 |  3.65 |
 |  3.07 |
 
+We do now have the second list of average task times which relates to
+the folder condition of the formal experiment.
   
-*** Plotting data
+** Plotting Data
+
+To visualize the two sets of data using a boxplot graph, we are using
+the R project:
 
 #+NAME: boxplot-data
 #+BEGIN_SRC R :var TSdata=TS-sort-mean-values :var Fdata=F-sort-mean-values :exports code :results none
 png('my_boxplot_data.png')
-mFdata=c(4.3, 3.72, 5.1, 4.03, 5.7, 6.97, 5.68, 11.02, 4.45, 3.07, 12.32, 5.05, 7.95, 5.72, 4.77, 3.65, 6.53)
-mTSdata=c(3.95, 4.25, 5.22, 6.2, 5.27, 10.27, 4.63, 5.97, 3.27, 4.55, 4.55, 6.92, 7.48, 6.57, 7.25)
+## following two commands compensate a bug
+## in the Babel method which should be fixed soon:
+mFdata=c(4.3, 3.72, 5.1, 4.03, 5.7, 6.97, 5.68, 
+         11.02, 4.45, 3.07, 12.32, 5.05, 7.95, 
+         5.72, 4.77, 3.65, 6.53)
+mTSdata=c(3.95, 4.25, 5.22, 6.2, 5.27, 10.27, 
+          4.63, 5.97, 3.27, 4.55, 4.55, 6.92, 
+          7.48, 6.57, 7.25)
 #par(mai=c(0.8,0.8,0,0), omd=c(0,0.5,0,1)) 
 # bot, lef, top, rig
 boxplot( list(mTSdata, mFdata), 
@@ -287,11 +361,23 @@ boxplot( list(mTSdata, mFdata),
 
 #+RESULTS: boxplot-data
 
-
 #+ATTR_LaTeX: width=0.5\textwidth
 #+CAPTION: Comparison of the two task conditions for re-finding: tagstore and folders. There is no significant difference between the two conditions.
+#+LABEL: fig:boxplots
 [[file:my_boxplot_data.png]]
 
+
+The resulting graph in Figure \ref{fig:boxplots} visualizes the
+overall result of the two test conditions: the average task times in
+the \emph{tagstore} condition and the folders condition.
+
+Every single step from the raw data from the \myacro{CSV} file to the
+graph in Figure \ref{fig:boxplots} can be completely checked and
+re-created by anybody who wants to do so. This method of Reproducible
+Research guarantees the highest level of transparency and confirmability.
+
+
+* boxplot-test :noexport:
 
 #+NAME: draw-histogram
 #+BEGIN_SRC python :var myvalues=TS-sort-mean-values :exports both
@@ -306,7 +392,6 @@ plt.bar(range(1,len(myvalues)+1), myvalues)
 plt.savefig("my_hist.png", format="png")
 #+END_SRC
 
-** boxplot-test
 
 #+NAME: boxplot-test
 #+BEGIN_SRC R :var mydata=TS-sort-mean-values :exports code :results none
@@ -320,19 +405,24 @@ boxplot(mydata, mydata, xlab="x")
 
 
 
-** Overview
+* Overview
+
 
 #+CAPTION: Overview of the input values, execution languages, and output values.
 #+LABEL: tab:overview-values-languages
-| *Input*                          | *Language* | *Output*              |
-|----------------------------------+------------+-----------------------|
-| \texttt{refinding\_tagstore.csv} | shell      | task time values      |
-| task time values                 | Python     | average time values   |
-| average time values              | shell      | sorted numbers        |
-| average time values              | R          | boxplot of times      |
+| *Input*                          | *Using*    | *Output*               |
+|----------------------------------+------------+------------------------|
+| \texttt{refinding\_tagstore.csv} | shell      | TS task time values    |
+| TS task time values              | Python     | TS average time values |
+| TS average time values           | shell      | TS sorted numbers      |
+| \texttt{refinding\_folder.csv}   | shell      | F task time values     |
+| F task time values               | Python     | F average time values  |
+| F average time values            | shell      | F sorted numbers       |
+| average time values TS + F       | R          | boxplot of times       |
 
+To sum up the different data paths, we conclude in
+Table \ref{tab:overview-values-languages} the different steps. 
 
-** End
 
 \bibliographystyle{abbrv}
 # change bibliography name to suit
@@ -614,10 +704,10 @@ The following table holds information about ACM categories.
 | code  | description                      | category                       | optional        |
 |-------+----------------------------------+--------------------------------+-----------------|
 | I.7.1 | DOCUMENT AND TEXT PROCESSING     | Document and Text Editing      | Emacs           |
-| H.4.1 | INFORMATION SYSTEMS APPLICATIONS | Office Automation              | Word processing |
-| D.2.3 | SOFTWARE ENGINEERING             | Coding Tools and Techniques    |                 |
 | I.7.1 | DOCUMENT AND TEXT PROCESSING     | Document Preparation           |                 |
+| H.4.1 | INFORMATION SYSTEMS APPLICATIONS | Office Automation              | Word processing |
 | I.7.4 | DOCUMENT AND TEXT PROCESSING     | Electronic Publishing          |                 |
+| D.2.3 | SOFTWARE ENGINEERING             | Coding Tools and Techniques    |                 |
 | D.4.9 | OPERATING SYSTEMS                | Systems Programs and Utilities |                 |
 | E.2   | DATA STORAGE REPRESENTATIONS     | Linked representations         |                 |
 

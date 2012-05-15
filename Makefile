@@ -8,7 +8,7 @@ all: iKNOW2012-orgmode-demo.pdf
 ## meanwhile: as a workaround, these things will be removed using grep and sed:
 iKNOW2012-orgmode-demo.tex: iKNOW2012-orgmode-demo.org
 	$(BATCH_EMACS) -f org-e-latex-export-to-latex
-	egrep -v "(#\+name: author-list|#\+header: |#\+name: ACM-categories)" iKNOW2012-orgmode-demo.tex > iKNOW2012-orgmode-demo.temp1
+	egrep -v "(#\+name: author-list|#\+header: |#\+name: ACM-categories|#\+RESULTS: |\\terms\{\})" iKNOW2012-orgmode-demo.tex > iKNOW2012-orgmode-demo.temp1
 	sed 's/\\titlenote{}//' iKNOW2012-orgmode-demo.temp1 > iKNOW2012-orgmode-demo.temp2
 	-rm iKNOW2012-orgmode-demo.tex
 	-mv iKNOW2012-orgmode-demo.temp2 iKNOW2012-orgmode-demo.tex
