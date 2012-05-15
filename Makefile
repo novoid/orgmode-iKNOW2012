@@ -4,8 +4,15 @@ BATCH_EMACS=$(EMACS) --batch -Q -l init-new.el iKNOW2012-orgmode-demo.org
 
 all: iKNOW2012-orgmode-demo.pdf
 
+## some minor things have to be improved in the Org-mode LaTeX exporter
+## meanwhile: as a workaround, these things will be removed using grep and sed:
 iKNOW2012-orgmode-demo.tex: iKNOW2012-orgmode-demo.org
 	$(BATCH_EMACS) -f org-e-latex-export-to-latex
+	egrep -v "(#\+name: author-list|#\+header: |#\+name: ACM-categories)" iKNOW2012-orgmode-demo.tex > iKNOW2012-orgmode-demo.temp1
+	sed 's/\\titlenote{}//' iKNOW2012-orgmode-demo.temp1 > iKNOW2012-orgmode-demo.temp2
+	-rm iKNOW2012-orgmode-demo.tex
+	-mv iKNOW2012-orgmode-demo.temp2 iKNOW2012-orgmode-demo.tex
+	-rm iKNOW2012-orgmode-demo.temp*
 
 iKNOW2012-orgmode-demo.pdf: iKNOW2012-orgmode-demo.tex
 	rm -f iKNOW2012-orgmode-demo.aux
@@ -27,4 +34,4 @@ iKNOW2012-orgmode-demo.ps: iKNOW2012-orgmode-demo.pdf
 	pdf2ps iKNOW2012-orgmode-demo.pdf
 
 clean:
-	rm -f *.aux *.log  *.dvi *.blg *.bbl *.toc *.tex *~ *.out *.xml *.lot *.lof
+	rm -f *.temp *.temp1 *.temp2 *.aux *.log  *.dvi *.blg *.bbl *.toc *.tex *~ *.out *.xml *.lot *.lof
