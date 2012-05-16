@@ -9,7 +9,7 @@
 
 # Replace the title and subtitle with your own
 #+BEGIN_LaTeX
-\title{Using Emacs Org-mode to Create Reproducible Research}
+\title{Reproducible Research with Emacs Org-mode}
 \subtitle{[Demo]\titlenote{The full source code of this
 paper is available on github
 \texttt{https://github.com/novoid/orgmode-iKNOW2012}}}
@@ -79,16 +79,16 @@ paper is available on github
 \maketitle
 
 #+BEGIN_abstract
-One important aspect of open science is the ability to reproduce
-results using the published data set. For this purpose it is crucial
-to use similar methods and tools as the original author producing the
-same result set. Reproducible research is a movement that tries to
-bridge this gap: within one single set of data one can not only find
-the raw data but also the methods and tools to process the data.  The
-ultimate discipline is to complete this cycle from the raw data up to
-the presentation in the derived paper. Using a simple example this
-paper demonstrates how to combine raw data, scripts of various
-languages, and the describing text of a paper in one single file.
+# One important aspect of open science is the ability to reproduce
+# results using the published data set. For this purpose it is crucial
+# to use similar methods and tools as the original author producing the
+# same result set. Reproducible research is a movement that tries to
+# bridge this gap: within one single set of data one can not only find
+# the raw data but also the methods and tools to process the data.  The
+# ultimate discipline is to complete this cycle from the raw data up to
+# the presentation in the derived paper. Using a simple example this
+# paper demonstrates how to combine raw data, scripts of various
+# languages, and the describing text of a paper in one single file.
 #+END_abstract
 
 #+name: ACM-categories
@@ -127,11 +127,10 @@ as source code and execution results from these source code snippets
 Literate Programming\cite{Knuth1984} or Reproducible
 Research\cite{Delescluse2011, Schulte2011, Schulte2012}.
 
-Reproducible Research can be seen as the ultimate aim of Open
-Science and Open Data. People do not only get access to the data
-behind a research paper but also to the complete process of deriving
-the paper from the raw data up to the \myacro{PDF} file of the white
-paper.
+Reproducible Research can be seen as the ultimate aim of Open Science
+and Open Data. People do not only get access to the data related to a
+research paper but also to the complete process of deriving the paper
+from the raw data up to the \myacro{PDF} file of the white paper.
 
 This paper is a short demonstration of the general work flow from the
 very easy to write Org-mode text-file -- which contains descriptive
@@ -149,6 +148,33 @@ different from the previous. With this technique, it is possible to
 process the data with the most suitable command language appropriate
 for this single processing step.
 
+* Document Generation Workflow
+
+In order to use Org-mode to generate a \myacro{PDF} file the user has
+to follow these two steps:
+
+1. Write the paper in Emacs Org-mode
+   - much simpler syntax and complexity compared to \LaTeX{}
+   - easy outlining with hiding of sections
+   - easy integration of external programming languages and commands
+     and their output
+   - everything in one single file
+2. Export to \LaTeX{}/PDF
+   - a single command, directly invoked within Emacs or for example
+     using \myacro{GNU} make
+
+The \TeX{} file is only \emph{one} export file format of a larger
+number of possible output formats such as OpenDocument Text, DocBook,
+\myacro{HTML}, and so forth. Using this Org-mode template, the LaTeX{}
+export function automatically generates a \LaTeX{} file and a
+\myacro{PDF} file which follows the \myacro{ACM} format.
+
+This process simplifies the generation of white papers and enables
+others to completely re-produce any result mentioned in the paper. No
+other artifacts than this single Org-mode file (and external
+\myacro{CSV} files if used) are necessary to generate everything from
+scratch.
+
 * Evaluating a Formal Experiment 
 
 In \cite{Voit2011} the authors describe a formal experiment conducted
@@ -161,7 +187,7 @@ to demonstrate the analysis and visualization of the research
 question: to what extent differs the test persons average re-find task
 times within the usual folder hierarchy from average re-find task
 times using the newly proposed research software called
-\emph{tagstore}\footnote{http://tagstore.org}.
+\emph{tagstore}\footnote{http://tagstore.org}\cite{Voit2012a}.
 
 ** Reading in Data from Files
 
@@ -351,8 +377,6 @@ mFdata=c(4.3, 3.72, 5.1, 4.03, 5.7, 6.97, 5.68,
 mTSdata=c(3.95, 4.25, 5.22, 6.2, 5.27, 10.27, 
           4.63, 5.97, 3.27, 4.55, 4.55, 6.92, 
           7.48, 6.57, 7.25)
-#par(mai=c(0.8,0.8,0,0), omd=c(0,0.5,0,1)) 
-# bot, lef, top, rig
 boxplot( list(mTSdata, mFdata), 
     names=c("tagstore", "folders"), 
     xlab="Task Times", ylab="Seconds", 
@@ -411,15 +435,15 @@ boxplot(mydata, mydata, xlab="x")
 
 #+CAPTION: Overview of the input values, execution languages, and output values.
 #+LABEL: tab:overview-values-languages
-| *Input*                          | *Using*    | *Output*               |
-|----------------------------------+------------+------------------------|
-| \texttt{refinding\_tagstore.csv} | shell      | TS task time values    |
-| TS task time values              | Python     | TS average time values |
-| TS average time values           | shell      | TS sorted numbers      |
-| \texttt{refinding\_folder.csv}   | shell      | F task time values     |
-| F task time values               | Python     | F average time values  |
-| F average time values            | shell      | F sorted numbers       |
-| average time values TS + F       | R          | boxplot of times       |
+| *Input*                          | *Using* | *Output*             |
+|----------------------------------+---------+----------------------|
+| \texttt{refinding\_tagstore.csv} | shell   | TS task time values  |
+| TS task time values              | Python  | TS avr. time values  |
+| TS avr. time values              | shell   | TS sorted numbers    |
+| \texttt{refinding\_folder.csv}   | shell   | F task time values   |
+| F task time values               | Python  | F avr. time values   |
+| F avr. time values               | shell   | F sorted numbers     |
+| avr. time values TS + F          | R       | boxplot of times     |
 
 To sum up the different data paths, we conclude in
 Table \ref{tab:overview-values-languages} the different steps. We have
@@ -432,9 +456,13 @@ we got the sorted list of mean values which were visualized using R
 into boxplot graphs.
 
 To summarize, the method of writing research papers within Org-mode
-can simplify the writing process itself, create additional value by
-having an easy to invoke data processing method, and it illustrates
-the author's work in the most transparent way possible.
+can simplify the writing process itself, lets the author choose the
+most suitable tool for the next data processing step, create
+additional value by having an easy to invoke data processing method,
+and it illustrates the author's work in the most transparent way
+possible.
+
+\nocite{CHI2012}
 
 \bibliographystyle{abbrv}
 # change bibliography name to suit
@@ -699,10 +727,10 @@ document.  You can separate groups of authors with a blank line to
 change the layout.
 
 #+name: authorlist
-| author        | note | institute                         | addr1                         | addr2    | email                   |
-|---------------+------+-----------------------------------+-------------------------------+----------+-------------------------|
-| Karl Voit     |      | Institute for Software Technology | Graz University of Technology | Austria  | Karl.Voit@IST.TUGraz.at |
-| Thomas S. Dye |      | Thomas S. Dye \& Colleagues       | 735 Bishop St, Suite 315      | Honolulu | tsd@tsdye.com           |
+| author        | note | institute                         | addr1                         | addr2            | email                   |
+|---------------+------+-----------------------------------+-------------------------------+------------------+-------------------------|
+| Karl Voit     |      | Institute for Software Technology | Graz University of Technology | Austria          | Karl.Voit@IST.TUGraz.at |
+| Thomas S. Dye |      | Thomas S. Dye \& Colleagues       | 735 Bishop St, Suite 315      | Honolulu, Hawaii | tsd@tsdye.com           |
 
 #+name: additional-authors
 | author            | institute                 | email                  |
