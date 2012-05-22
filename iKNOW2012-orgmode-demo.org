@@ -244,9 +244,9 @@ Now that we have the raw task times of the test persons for the
 values for further processing.
 
 In the next step, the mean values will be calculated using the
-programming language Python. We take the result data from the last
-command from the previous section and use it as input data for the
-following source code snippet:
+programming language \emph{Python}. We take the result data from the
+last command from the previous section and use it as input data for
+the following source code snippet:
 
 #+NAME: calculate-TS-mean-values
 #+BEGIN_SRC python :var mytable=TS-time-per-task :exports code
@@ -263,13 +263,13 @@ suppressed for layout purposes.
 ** Sorting Values
 
 To demonstrate the combination of different command languages, we are
-now using \myacro{GNU} sed and sort to transform the list of mean
+now using \myacro{GNU} \emph{tr} and \emph{sort} to transform the list of mean
 values in a column format of mean values and sort it reverse
 numerical:
 
 #+NAME: TS-sort-mean-values
 #+BEGIN_SRC sh :var myvalues=calculate-TS-mean-values :exports both
-echo ${myvalues} | sed 's/ /\n/g' | sort -nr
+echo ${myvalues} | tr ' ' '\n' | sort -nr
 #+END_SRC
 
 #+RESULTS: TS-sort-mean-values
@@ -335,7 +335,7 @@ return [round(numpy.average(row),2) for row in mytable]
 
 #+NAME: F-sort-mean-values
 #+BEGIN_SRC sh :var myvalues=calculate-F-mean-values :exports both
-echo ${myvalues} | sed 's/ /\n/g' | sort -nr
+echo ${myvalues} | tr ' ' '\n' | sort -nr
 #+END_SRC
 
 #+RESULTS: F-sort-mean-values
