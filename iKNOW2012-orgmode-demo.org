@@ -7,6 +7,13 @@
 
 ## FIXXME: do *not* fill out "+TITLE' above!
 
+#+COMMENT: executing this command via C-c C-c generates the PDF output file:
+#+BEGIN_SRC sh :exports none
+make all
+#+END_SRC
+
+#+RESULTS:
+
 # Replace the title and subtitle with your own
 #+BEGIN_LaTeX
 \title{Reproducible Research with Emacs Org-mode}
@@ -78,17 +85,18 @@ paper is available on github
 
 \maketitle
 
+
 #+BEGIN_abstract
-# One important aspect of open science is the ability to reproduce
-# results using the published data set. For this purpose it is crucial
-# to use similar methods and tools as the original author producing the
-# same result set. Reproducible research is a movement that tries to
-# bridge this gap: within one single set of data one can not only find
-# the raw data but also the methods and tools to process the data.  The
-# ultimate discipline is to complete this cycle from the raw data up to
-# the presentation in the derived paper. Using a simple example this
-# paper demonstrates how to combine raw data, scripts of various
-# languages, and the describing text of a paper in one single file.
+One important aspect of open science is the ability to reproduce
+results using the published data set. For this purpose it is crucial
+to use similar methods and tools as the original author producing the
+same result set. Reproducible research is a movement that tries to
+bridge this gap: within one single set of data one can not only find
+the raw data but also the methods and tools to process the data.  The
+ultimate discipline is to complete this cycle from the raw data up to
+the presentation in the derived paper. Using a simple example this
+paper demonstrates how to combine raw data, scripts of various
+languages, and the describing text of a paper in one single file.
 #+END_abstract
 
 #+name: ACM-categories
@@ -113,40 +121,48 @@ paper is available on github
 
 * Introduction and Related Work
 
-The editor Emacs\footnote{http://www.gnu.org/software/emacs/} provides
-a modular system that can be extended in various ways. One example of
-an extension is the
-Org-mode\footnote{http://orgmode.org}\cite{Dominik2010} which
-resembles a large set of features: outlining, task and project
-management, personal wiki system, export to a broad variety of
-formats, integration of external tools, and much more.
+The editor Emacs[fn:emacs] (\cite{Dominik2010}) provides a modular
+system that can be extended in various ways. One example of an
+extension is the Org-mode[fn:orgmode] which resembles a large set of
+features: outlining, task and project management, personal wiki
+system, export to a broad variety of formats, integration of external
+tools, and much more.
 
-Using the Babel subsystem to integrate external data sources -- such
-as source code and execution results from these source code snippets
--- allows for creating meta-documents. This method can be applied for
-Literate Programming\cite{Knuth1984} or Reproducible
+Using the Babel subsystem[fn:babel] to integrate external data sources
+-- such as source code and execution results from these source code
+snippets -- allows for creating meta-documents. This method can be
+applied for Literate Programming\cite{Knuth1984} or Reproducible
 Research\cite{Delescluse2011, Schulte2011, Schulte2012}.
 
-Reproducible Research can be seen as the ultimate aim of Open Science
-and Open Data. People do not only get access to the data related to a
-research paper but also to the complete process of deriving the paper
-from the raw data up to the \myacro{PDF} file of the white paper.
+Reproducible Research can be seen as the ultimate aim of Open
+Science[fn:open-science] and Open Data[fn:open-data]. People do not
+only get access to the data related to a research paper but also to
+the complete process of deriving the paper from the raw data up to the
+\myacro{PDF} file of the white paper.
 
 This paper is a short demonstration of the general work flow from the
 very easy to write Org-mode text-file -- which contains descriptive
 text and processing scripts -- to the final \myacro{PDF} document in
-exact \myacro{ACM} template
-format\footnote{http://www.acm.org/sigs/publications/proceedings-templates}. 
+exact \myacro{ACM} template format[fn:acm-template].
 
 Using a real world example, this paper develops a data processing path
-starting from raw data within \myacro{CSV} files up to visualizing
-plots. Different computer languages are part of this process: shell
-script tools, Python\footnote{Programming language, http://www.python.org/}, 
-and R\footnote{Statistical software, http://www.r-project.org/}. The data is generated or processed using
-one computer language and transferred to the next one which is
-different from the previous. With this technique, it is possible to
-process the data with the most suitable command language appropriate
-for this single processing step.
+starting from raw data within comma-separated values (\myacro{CSV})
+files up to visualizing plots. Different computer languages are part
+of this process: shell script tools, Python[fn:python], and
+R[fn:r-lang]. The data is generated or processed using one computer
+language and transferred to the next one which is different from the
+previous. With this technique, it is possible to process the data with
+the most suitable command language appropriate for this single
+processing step.
+
+[fn:emacs] http://www.gnu.org/software/emacs/
+[fn:orgmode] http://orgmode.org
+[fn:babel] http://orgmode.org/worg/org-contrib/babel/intro.html
+[fn:open-science] http://en.wikipedia.org/wiki/Open\_science
+[fn:open-data] http://en.wikipedia.org/wiki/Open\_data
+[fn:acm-template] http://www.acm.org/sigs/publications/proceedings-templates
+[fn:python] Programming language, http://www.python.org/
+[fn:r-lang] Statistical software, http://www.r-project.org/
 
 * Document Generation Workflow
 
@@ -160,12 +176,12 @@ to follow these two steps:
      and their output
    - everything in one single file
 2. Export to \LaTeX{}/PDF
-   - a single command, directly invoked within Emacs or for example
-     using \myacro{GNU} make
+   - a single command[fn:export], directly invoked within Emacs or for
+     example using \myacro{GNU} make
 
 The \TeX{} file is only \emph{one} export file format of a larger
 number of possible output formats such as OpenDocument Text, DocBook,
-\myacro{HTML}, and so forth. Using this Org-mode template, the LaTeX{}
+\myacro{HTML}, and so forth. Using this Org-mode template, the \LaTeX{}
 export function automatically generates a \LaTeX{} file and a
 \myacro{PDF} file which follows the \myacro{ACM} format.
 
@@ -175,19 +191,28 @@ other artifacts than this single Org-mode file (and external
 \myacro{CSV} files if used) are necessary to generate everything from
 scratch.
 
+[fn:export] Usually this is \texttt{org-export-as-pdf} mapped to
+\texttt{C-c C-e p}. However this paper is generated using a
+\myacro{GNU} make file in order to automate the whole process without
+having to modify the user configuration files. The command to generate
+this paper is \texttt{make all}.
+
 * Evaluating a Formal Experiment 
 
 In \cite{Voit2011} the authors describe a formal experiment conducted
 with 18 test persons in the field of information retrieval. The
 original data set is available
-online\footnote{https://github.com/novoid/2011-01-tagstore-formal-experiment}.
+online[fn:fe1-github].
 
 We are using this public available data set in the following sections
 to demonstrate the analysis and visualization of the research
 question: to what extent differs the test persons average re-find task
 times within the usual folder hierarchy from average re-find task
 times using the newly proposed research software called
-\emph{tagstore}\footnote{http://tagstore.org}\cite{Voit2012a}.
+\emph{tagstore}[fn:tagstore-url]\cite{Voit2012a}.
+
+[fn:fe1-github] https://github.com/novoid/2011-01-tagstore-formal-experiment
+[fn:tagstore-url] http://tagstore.org}
 
 ** Reading in Data from Files
 
