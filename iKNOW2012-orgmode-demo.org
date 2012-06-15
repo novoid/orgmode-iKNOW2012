@@ -149,11 +149,14 @@ Using a real world example, this paper develops a data processing path
 starting from raw data within comma-separated values (\myacro{CSV})
 files up to visualizing plots. Different computer languages are part
 of this process: shell script tools, Python[fn:python], and
-R[fn:r-lang]. The data is generated or processed using one computer
-language and transferred to the next one which is different from the
-previous. With this technique, it is possible to process the data with
-the most suitable command language appropriate for this single
-processing step.
+R[fn:r-lang]. 
+
+Data is generated or processed using one computer language whose
+results are transferred to the next one which might be a different
+programming language from the previous. With this technique, it is
+possible to process the data with the most suitable command language
+appropriate for this single processing step. This is Literate
+Programming using multiple programming languages in linear sequence.
 
 [fn:emacs] http://www.gnu.org/software/emacs/
 [fn:orgmode] http://orgmode.org
@@ -166,8 +169,8 @@ processing step.
 
 * Document Generation Workflow
 
-In order to use Org-mode to generate a \myacro{PDF} file the user has
-to follow these two steps:
+In order to use Org-mode to generate a \myacro{PDF} file (similar to
+this paper) the user has to follow two steps:
 
 1. Write the paper in Emacs Org-mode
    - much simpler syntax and complexity compared to \LaTeX{}
@@ -187,9 +190,12 @@ export function automatically generates a \LaTeX{} file and a
 
 This process simplifies the generation of white papers and enables
 others to completely re-produce any result mentioned in the paper. No
-other artifacts than this single Org-mode file (and external
+other artifacts than this /single Org-mode file/ (and external
 \myacro{CSV} files if used) are necessary to generate everything from
-scratch.
+scratch. And this resembles one of the most important advantages of
+the method presented here: a consistent, complete, and easy to
+re-generate form of the whole research contribution from raw data
+files up to the \myacro{PDF} paper result.
 
 [fn:export] Usually this is \texttt{org-export-as-pdf} mapped to
 \texttt{C-c C-e p}. However this paper is generated using a
@@ -197,7 +203,130 @@ scratch.
 having to modify the user configuration files. The command to generate
 this paper is \texttt{make all}.
 
-* Evaluating a Formal Experiment 
+* Short Syntax Comparison
+
+The \LaTeX{} markup language is complex in terms of
+\enquote{characters to type that are not visible in the result}.  The
+syntax of Org-mode is much more simpler, comparable to the reduced
+syntax languages of Wiki[fn:wiki-url] systems. Therefore the Org-mode
+syntax is a lightweight markup language[fn:markup-lang].
+
+The following syntax example in both syntax languages demonstrates
+some aspects that make the difference syntax complexity obvious:
+
+#+BEGIN_EXAMPLE
+\begin{itemize}
+\item First item inlcuding a \texttt{filename.txt}.
+\item Second line with an 
+  \href{http://orgmodeorg}{URL of Org-mode}
+\item An URL alone is even simpler: 
+  \url{http://tagtore.org}
+  \begin{enumerate}
+  \item indented enumerated list.
+  \item This one contains \emph{emphasized} and 
+    \textbf{bold} words.
+  \end{enumerate}
+\end{itemize}
+
+The next part consists of a source 
+code\footnote{Using the \texttt{listings} 
+  package.} example:
+
+\begin{lstlisting}[language=Python]
+def hello_world():
+    print "Hello World"
+  
+hello_world()
+\end{lstlisting}
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{lr}
+    \textbf{Input} & \textbf{Speed [s]} \\ \hline
+    high dataset   & 4.1                \\
+    low dataset    & 1.7
+  \end{tabular}
+  \caption{Performance results of the code.}
+  \label{tab:results}
+\end{table}
+#+END_EXAMPLE
+
+The \LaTeX{}-content from above with the same markup in Org-mode
+syntax looks like following lines:
+
+#+BEGIN_EXAMPLE
+- First item inlcuding a ~filename.txt~.
+- Second line with 
+  an [[http://orgmodeorg][URL of Org-mode]]
+- An URL alone is even simpler: http://tagtore.org
+  1. indented enumerated list.
+  2. This one contains /emphasized/ and 
+     *bold* words.
+
+The next part consists of a source 
+code[fn:lst] example:
+
+#+BEGIN_SRC python :exports code
+def hello_world():
+    print "Hello World"
+  
+hello_world()
+#+END_SRC
+
+#+CAPTION: Performance results of the code.
+#+LABEL:   tab:results
+| *Input*        | *Speed [s]* |
+|----------------+-------------|
+| high dataset   | 4.1         |
+| low dataset    | 1.7         |
+
+[fn:lst] Using the ~listings~ package.
+#+END_EXAMPLE
+
+When Org-mode exports this code to \myacro{PDF} using \LaTeX{} the
+results looks like this:
+
+- First item inlcuding a ~filename.txt~.
+- Second line with 
+  an [[http://orgmodeorg][URL of Org-mode]]
+- An URL alone is even simpler: http://tagtore.org
+  1. indented enumerated list.
+  2. This one contains /emphasized/ and 
+     *bold* words.
+
+The next part consists of a source 
+code[fn:lst] example:
+
+#+BEGIN_SRC python :exports code
+def hello_world():
+    print "Hello World"
+  
+hello_world()
+#+END_SRC
+
+#+CAPTION: Performance results of the code.
+#+LABEL:   tab:results
+| *Input*      | *Speed [s]* |
+|--------------+-------------|
+| high dataset |         4.1 |
+| low dataset  |         1.7 |
+
+The simpler Org-mode syntax enables researchers to concentrate on the
+content without being distracted by expressing the form. If the user
+wants to use \LaTeX{} commands that do not have an equivalent in
+Org-mode syntax, she can type in those \LaTeX{} commands in the
+Org-mode file as well: the Org-mode exporter for \LaTeX{} will pass
+those commands through.
+
+[fn:lst] Using the ~listings~ package.
+[fn:wiki-url] http://en.wikipedia.org/wiki/Wiki
+[fn:markup-lang] http://en.wikipedia.org/wiki/Lightweight_markup_language
+
+* Example Evaluation
+
+So far the basic idea was described in previous sections. In this
+section, real-world data is used to produce a short research
+evaluation example.
 
 In \cite{Voit2011} the authors describe a formal experiment conducted
 with 18 test persons in the field of information retrieval. The
@@ -209,10 +338,10 @@ to demonstrate the analysis and visualization of the research
 question: to what extent differs the test persons average re-find task
 times within the usual folder hierarchy from average re-find task
 times using the newly proposed research software called
-\emph{tagstore}[fn:tagstore-url]\cite{Voit2012a}.
+\emph{tagstore} [fn:tagstore-url] (see also \cite{Voit2012a}).
 
 [fn:fe1-github] https://github.com/novoid/2011-01-tagstore-formal-experiment
-[fn:tagstore-url] http://tagstore.org}
+[fn:tagstore-url] http://tagstore.org
 
 ** Reading in Data from Files
 
@@ -486,6 +615,48 @@ most suitable tool for the next data processing step, create
 additional value by having an easy to invoke data processing method,
 and it illustrates the author's work in the most transparent way
 possible.
+
+
+* Limitations
+
+For the purpose of this paper, the Org-mode \LaTeX{} export
+preferences were adopted in order to meet the specifications of the
+\myacro{ACM} paper template. To be future-proof, the authors used the
+upcoming new \LaTeX{} exporter that will replace the current one. This
+leads to following current limitations.
+
+The normal Org-mode \LaTeX{} \myacro{PDF} export command has to be
+replaced by the command for the command ~org-e-latex-export-to-latex~
+for the enhanced \LaTeX{} \myacro{PDF} export.
+
+Usually, each Emacs user has Emacs configuration files that are
+highly personalized. For generating the \myacro{PDF} export file
+independent of the current user configuration, a stand-alone Emacs
+configuration file was created. 
+
+Having to adopt to the specifications to the \myacro{ACM} template
+a number of settings had to be altered. There were still some issues
+that could not be solved yet such as remaining \TeX{} lines for
+~author-list~ and such. Those unnecessary lines have to be removed
+from the \TeX{} file after the \LaTeX{} export and before the compile
+process to generate the \myacro{PDF} file. All those steps are
+encapsulated within a \myacro{GNU} make file. The single command line
+sequence ~make all~ generates everything from the Org-mode file to the
+final \myacro{PDF} file.
+
+* Summary and Outlook
+
+This paper demonstrates a new way of generating research papers
+directly from the outlining tool Org-mode which is an enhancement of
+the Emacs editor. The outlining file contains not only the text from
+the paper but also all processing steps and scripts.  A method like
+this allows reproducible research from the raw data files up to the
+results generated without leaving any gap in between.
+
+Since this method is relatively new and is using many customizations
+for \myacro{ACM} template format, a few workarounds described in the
+previous section were necessary. With future versions of Org-mode,
+those workarounds will be minimized or removed totally.
 
 \nocite{CHI2012}
 
