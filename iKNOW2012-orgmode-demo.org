@@ -16,8 +16,7 @@ make all
 
 # Replace the title and subtitle with your own
 #+BEGIN_LaTeX
-\title{Reproducible Research with Emacs Org-mode}
-\subtitle{[Demo]\titlenote{The full source code of this
+\title{Reproducible Research with Emacs Org-mode\titlenote{The full source code of this
 paper is available on github
 \texttt{https://github.com/novoid/orgmode-iKNOW2012}}}
 #+END_LaTeX
@@ -143,7 +142,7 @@ the complete process of deriving the paper from the raw data up to the
 This paper is a short demonstration of the general work flow from the
 very easy to write Org-mode text-file -- which contains descriptive
 text and processing scripts -- to the final \myacro{PDF} document in
-exact \myacro{ACM} template format[fn:acm-template].
+\myacro{ACM} template format[fn:acm-template].
 
 Using a real world example, this paper develops a data processing path
 starting from raw data within comma-separated values (\myacro{CSV})
@@ -173,14 +172,15 @@ In order to use Org-mode to generate a \myacro{PDF} file (similar to
 this paper) the user has to follow two steps:
 
 1. Write the paper in Emacs Org-mode
-   - much simpler syntax and complexity compared to \LaTeX{}
+   - much simpler syntax and complexity compared to \LaTeX{} command set
    - easy outlining with hiding of sections
-   - easy integration of external programming languages and commands
+   - easy integration of external programming languages, commands,
      and their output
-   - everything in one single file
+   - everything in one single text file
+   - readable with any text editor or text viewer
 2. Export to \LaTeX{}/PDF
-   - a single command[fn:export], directly invoked within Emacs or for
-     example using \myacro{GNU} make
+   - a single command[fn:export], directly invoked within Emacs (or for
+     example \myacro{GNU} make)
 
 The \TeX{} file is only \emph{one} export file format of a larger
 number of possible output formats such as OpenDocument Text, DocBook,
@@ -197,11 +197,11 @@ the method presented here: a consistent, complete, and easy to
 re-generate form of the whole research contribution from raw data
 files up to the \myacro{PDF} paper result.
 
-[fn:export] Usually this is \texttt{org-export-as-pdf} mapped to
+[fn:export] Usually \texttt{org-export-as-pdf} is mapped to
 \texttt{C-c C-e p}. However this paper is generated using a
 \myacro{GNU} make file in order to automate the whole process without
 having to modify the user configuration files. The command to generate
-this paper is \texttt{make all}.
+this paper is \texttt{make all} and is invoked from command line.
 
 * Short Syntax Comparison
 
@@ -251,8 +251,8 @@ hello_world()
 \end{table}
 #+END_EXAMPLE
 
-The \LaTeX{}-content from above with the same markup in Org-mode
-syntax looks like following lines:
+The very same content from above using Org-mode markup syntax looks
+like following lines:
 
 #+BEGIN_EXAMPLE
 - First item inlcuding a ~filename.txt~.
@@ -314,7 +314,7 @@ hello_world()
 The simpler Org-mode syntax enables researchers to concentrate on the
 content without being distracted by expressing the form. If the user
 wants to use \LaTeX{} commands that do not have an equivalent in
-Org-mode syntax, she can type in those \LaTeX{} commands in the
+Org-mode syntax, she can type in \LaTeX{} commands directly in the
 Org-mode file as well: the Org-mode exporter for \LaTeX{} will pass
 those commands through.
 
@@ -626,8 +626,8 @@ upcoming new \LaTeX{} exporter that will replace the current one. This
 leads to following current limitations.
 
 The normal Org-mode \LaTeX{} \myacro{PDF} export command has to be
-replaced by the command for the command ~org-e-latex-export-to-latex~
-for the enhanced \LaTeX{} \myacro{PDF} export.
+replaced by the command for the enhanced \LaTeX{} \myacro{PDF}
+export[fn:newexportcmd].
 
 Usually, each Emacs user has Emacs configuration files that are
 highly personalized. For generating the \myacro{PDF} export file
@@ -643,6 +643,8 @@ process to generate the \myacro{PDF} file. All those steps are
 encapsulated within a \myacro{GNU} make file. The single command line
 sequence ~make all~ generates everything from the Org-mode file to the
 final \myacro{PDF} file.
+
+[fn:newexportcmd] ~org-e-latex-export-to-latex~
 
 * Summary and Outlook
 
@@ -660,11 +662,12 @@ those workarounds will be minimized or removed totally.
 
 \nocite{CHI2012}
 
+\balancecolumns
+
 \bibliographystyle{abbrv}
 # change bibliography name to suit
 \bibliography{references}  
 
-\balancecolumns
 
 * Instructions for use                                             :noexport:
 
