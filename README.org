@@ -1,0 +1,21 @@
+* Reproducible Research with Emacs Org-mode
+
+This paper was submitted to and was accepted at [[http://i-know.tugraz.at/][i-KNOW 2012]] in Graz,
+Austria.
+
+The content of the source file ~iKNOW2012-orgmode-demo.org~ (and the
+results in ~iKNOW2012-orgmode-demo.pdf~) is the documentation of the
+workflow presented here.
+
+** Abstract
+
+One important aspect of open science is the ability to reproduce
+results using the published data set. For this purpose it is crucial
+to use similar methods and tools as the original author producing the
+same result set. Reproducible research is a movement that tries to
+bridge this gap: within one single set of data one can not only find
+the raw data but also the methods and tools to process the data.  The
+ultimate discipline is to complete this cycle from the raw data up to
+the presentation in the derived paper. Using a simple example this
+paper demonstrates how to combine raw data, scripts of various
+languages, and the describing text of a paper in one single file.
