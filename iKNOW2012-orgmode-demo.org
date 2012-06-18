@@ -217,7 +217,7 @@ some aspects that make the difference syntax complexity obvious:
 
 #+BEGIN_EXAMPLE
 \begin{itemize}
-\item First item inlcuding a \texttt{filename.txt}.
+\item First item including a \texttt{filename.txt}.
 \item Second line with an 
   \href{http://orgmodeorg}{URL of Org-mode}
 \item An URL alone is even simpler: 
@@ -256,7 +256,7 @@ The very same content from above using Org-mode markup syntax looks
 like following lines:
 
 #+BEGIN_EXAMPLE
-- First item inlcuding a ~filename.txt~.
+- First item including a ~filename.txt~.
 - Second line with 
   an [[http://orgmodeorg][URL of Org-mode]]
 - An URL alone is even simpler: http://tagtore.org
@@ -287,7 +287,7 @@ hello_world()
 When Org-mode exports this code to \myacro{PDF} using \LaTeX{} the
 results looks like this:
 
-- First item inlcuding a ~filename.txt~.
+- First item including a ~filename.txt~.
 - Second line with 
   an [[http://orgmodeorg][URL of Org-mode]]
 - An URL alone is even simpler: http://tagtore.org
@@ -823,7 +823,7 @@ use.
   (require 'org-install)
   (require 'org-latex)
   
-  ;; this line only required until the upcomming Org-mode/Emacs24 sync
+  ;; this line only required until the upcoming Org-mode/Emacs24 sync
   (load "~/.emacs.d/src/org/lisp/org-exp-blocks.el")
   
   
@@ -879,7 +879,7 @@ use.
 
 Configure the Makefile by supplying the correct string for your emacs
 application and the name of the initialization file.  Currently, this
-is setup to use the old exporter.  It will need to be modified to run
+is set up to use the old exporter.  It will need to be modified to run
 the new exporter.
 
 Once this is done, evaluate the code block with C-c C-c to create a
