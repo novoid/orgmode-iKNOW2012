@@ -125,7 +125,8 @@ system that can be extended in various ways. One example of an
 extension is the Org-mode[fn:orgmode] which resembles a large set of
 features: outlining, task and project management, personal wiki
 system, export to a broad variety of formats, integration of external
-tools, and much more.
+tools, and much more. Org-mode is portable, available on any important
+platform, and Open Source.
 
 Using the Babel subsystem[fn:babel] to integrate external data sources
 -- such as source code and execution results from these source code
@@ -147,7 +148,7 @@ text and processing scripts -- to the final \myacro{PDF} document in
 Using a real world example, this paper develops a data processing path
 starting from raw data within comma-separated values (\myacro{CSV})
 files up to visualizing plots. Different computer languages are part
-of this process: shell script tools, Python[fn:python], and
+of this process: command line scripting tools, Python[fn:python], and
 R[fn:r-lang]. 
 
 Data is generated or processed using one computer language whose
@@ -163,8 +164,8 @@ Programming using multiple programming languages in linear sequence.
 [fn:open-science] http://en.wikipedia.org/wiki/Open\_science
 [fn:open-data] http://en.wikipedia.org/wiki/Open\_data
 [fn:acm-template] http://www.acm.org/sigs/publications/proceedings-templates
-[fn:python] Programming language, http://www.python.org/
-[fn:r-lang] Statistical software, http://www.r-project.org/
+[fn:python] Programming language, http://www.python.org
+[fn:r-lang] Statistical software, http://www.r-project.org
 
 * Document Generation Workflow
 
@@ -176,7 +177,7 @@ this paper) the user has to follow two steps:
    - easy outlining with hiding of sections
    - easy integration of external programming languages, commands,
      and their output
-   - everything in one single text file
+   - everything in one single text file (optional)
    - readable with any text editor or text viewer
 2. Export to \LaTeX{}/PDF
    - a single command[fn:export], directly invoked within Emacs (or for
@@ -422,7 +423,7 @@ values in a column format of mean values and sort it reverse
 numerical:
 
 #+NAME: TS-sort-mean-values
-#+BEGIN_SRC sh :var myvalues=calculate-TS-mean-values :exports both
+#+BEGIN_SRC sh :var myvalues=calculate-TS-mean-values :exports code
 echo ${myvalues} | tr ' ' '\n' | sort -nr
 #+END_SRC
 
@@ -442,7 +443,6 @@ echo ${myvalues} | tr ' ' '\n' | sort -nr
 |  4.25 |
 |  3.95 |
 |  3.27 |
-
 
 We get the sorted list of mean values of the task times for all test
 persons in the \emph{tagstore} condition.
@@ -488,7 +488,7 @@ return [round(numpy.average(row),2) for row in mytable]
 | 4.3 | 3.72 | 5.1 | 4.03 | 5.7 | 6.97 | 5.68 | 11.02 | 4.45 | 3.07 | 12.32 | 5.05 | 7.95 | 5.72 | 4.77 | 3.65 | 6.53 |
 
 #+NAME: F-sort-mean-values
-#+BEGIN_SRC sh :var myvalues=calculate-F-mean-values :exports both
+#+BEGIN_SRC sh :var myvalues=calculate-F-mean-values :exports code
 echo ${myvalues} | tr ' ' '\n' | sort -nr
 #+END_SRC
 
@@ -531,7 +531,7 @@ mFdata=c(4.3, 3.72, 5.1, 4.03, 5.7, 6.97, 5.68,
 mTSdata=c(3.95, 4.25, 5.22, 6.2, 5.27, 10.27, 
           4.63, 5.97, 3.27, 4.55, 4.55, 6.92, 
           7.48, 6.57, 7.25)
-boxplot( list(mTSdata, mFdata), 
+boxplot(list(mTSdata, mFdata), 
     names=c("tagstore", "folders"), 
     xlab="Task Times", ylab="Seconds", 
     pars = list(boxwex = 0.3, staplewex = 0.5, 
@@ -540,21 +540,21 @@ boxplot( list(mTSdata, mFdata),
 
 #+RESULTS: boxplot-data
 
-: #+CAPTION: Comparison of the two task conditions for re-finding: tagstore and folders. There is no significant difference between the two conditions.
-: #+LABEL: fig:boxplots
+#+LABEL: fig:boxplots
+#+CAPTION: Comparison of the two task conditions for re-finding: tagstore and folders. There is no significant difference between the two conditions.
 #+ATTR_LaTeX: width=0.5\textwidth
 [[file:my_boxplot_data.png]]
 
-
 The resulting graph visualizes the overall result of the two test
-conditions: the average task times in the \emph{tagstore} condition
-and the folders condition.
+conditions in form of a boxplot[fn:boxplot]: the average task times in
+the \emph{tagstore} condition and the folders condition.
 
 Every single step from the raw data from the \myacro{CSV} file to the
 graph can be completely checked and re-created by anybody who wants to
 do so. This method of Reproducible Research guarantees the highest
 level of transparency and confirmability.
 
+[fn:boxplot] http://en.wikipedia.org/wiki/Box_plot
 
 * boxplot-test :noexport:
 
