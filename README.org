@@ -42,8 +42,9 @@ Use ~make clean~ to remove temporary files.
 The CSV files contain some example data which is used to demonstrate
 calculations and evaluation.
 
-** Orgmode-demo.org
+** Org-mode demo (reference)
 
-An independent Org-mode file which demonstrates some basic features of
-Org-mode: http://orgmode.org
+An independent Org-mode demo which demonstrates some basic features of
+Org-mode http://orgmode.org can be found on:
+https://github.com/novoid/org-mode-workshop
 
