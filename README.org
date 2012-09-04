@@ -19,3 +19,31 @@ ultimate discipline is to complete this cycle from the raw data up to
 the presentation in the derived paper. Using a simple example this
 paper demonstrates how to combine raw data, scripts of various
 languages, and the describing text of a paper in one single file.
+
+* Files
+
+** iKNOW2012-orgmode-demo.org
+
+This file contains the main content: the Org-mode file version of the
+ACM paper which can be generated with ~make~.
+
+** Makefile
+
+The Makefile defines the process on how to generate the ACM
+paper. This method ensures a working process independent from
+personal Emacs settings.
+
+Use ~make~ to re-generate the PDF version of the paper.
+
+Use ~make clean~ to remove temporary files.
+
+** CSV files
+
+The CSV files contain some example data which is used to demonstrate
+calculations and evaluation.
+
+** Orgmode-demo.org
+
+An independent Org-mode file which demonstrates some basic features of
+Org-mode: http://orgmode.org
+
