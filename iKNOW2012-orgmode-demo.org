@@ -1012,3 +1012,8 @@ separated list wrapped by the command.
 \terms{Theory}
 #+END_LaTeX
 
+% Local Variables:
+% mode: auto-fill
+% mode: flyspell
+% eval: (ispell-change-dictionary "en_US")
+% End:
